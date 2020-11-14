@@ -11,6 +11,7 @@ module.exports = withPWA({
     },
     pwa: {
         dest: 'public',
+        publicExcludes: ['!routes.json'],
         runtimeCaching,
     },
 })
