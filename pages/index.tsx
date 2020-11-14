@@ -1,7 +1,14 @@
 import Head from 'next/head'
+
+import useSWR from 'swr';
+
 import styles from '../styles/Home.module.css'
 
+const fetcher = url => fetch(url).then(r => r.blob())
+
 export default function Home() {
+  const { data } = useSWR('/everest.jpg', fetcher);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,6 +20,11 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        {!data
+          ? <h1 className={styles.title}>Loading...</h1>
+          : <img src="/everest.jpg" sizes="((min-width: 600px) and (max-width: 1004px)) 84vw, (min-width: 1005px) 80vw, 100vw" />
+        }
 
         <p className={styles.description}>
           Get started by editing{' '}
